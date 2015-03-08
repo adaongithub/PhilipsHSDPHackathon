@@ -268,6 +268,76 @@
                     </div>
 
                     <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                            <h1><small><img src="images/notebook.png" alt="Notebook" />&nbsp;Patient Information</small></h1>
+                        </div>
+                        <div class="col-md-2"></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <img src="images/sam.jpg" class="img-responsive" alt="Picture of Patient" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4"></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8 person-report" style="margin: 10px 0;">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-6 h4">Status</div>
+                                        <div class="col-md-6 h4">Gender</div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6 bg-info" ng-status></div>
+                                        <div class="col-md-6 bg-info" ng-gender></div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6 h4">Name(s)</div>
+                                        <div class="col-md-6 h4">Telecom</div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6  bg-info" ng-names></div>
+                                        <div class="col-md-6  bg-info" ng-phones></div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12 h4">Address(es)</div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12  bg-info" ng-addresses></div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6 h4">Birth Date:</div>
+                                        <div class="col-md-6 h4">Organization</div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6  bg-info" ng-birthdate></div>
+                                        <!-- Organization information - Note that this is a separate service, but included in the Patient view. -->
+                                        <div class="col-md-6  bg-info" ng-organization></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2"></div>
+                    </div>
+                    <!-- End of patient demographic information template -->
+
+                    <div class="row">
                         <div class="col-lg-2 col-md-1 col-sm-0"></div>
                         <div class="col-lg-8 col-md-10 col-sm-12">
                             <a name="nurse-glucose"><h1><small><img src="images/chart_area.png" alt="Chart Icon" />&nbsp;Glucose</small></h1></a>
@@ -401,14 +471,14 @@
                             <div class="col-md-6">
                                 <div class="panel panel-default">
                                     <div class="panel-body">
-                                        <img src="images/pear2.JPG" class="img-responsive" alt="fruit meal">
+                                        <img src="images/pear2.JPG" class="img-responsive" alt="fruit meal" />
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="panel panel-default">
                                     <div class="panel-body">
-                                        <img src="images/turkey.JPG" class="img-responsive" alt="turkey club meal">
+                                        <img src="images/turkey.JPG" class="img-responsive" alt="turkey club meal" />
                                     </div>
                                 </div>
                             </div>
@@ -445,37 +515,6 @@
 
             </div> <!-- End of Dashboard -->
 
-
-
-
-                <!--             <div class="row">
-                    <div class="col-md-6 h4">Status</div>
-                    <div class="col-md-6 h4">Gender</div>
-                </div> -->
-                <!-- <div class="row">
-                    <div class="col-md-6 bg-info" ng-status>
-                    </div>
-                    <div class="col-md-6 bg-info" ng-gender>
-                    </div></div>
-                    <div class="row"><div class="col-md-6 h4">Name(s)</div><div class="col-md-6 h4">Telecom</div></div>
-                    <div class="row">
-                        <div class="col-md-6  bg-info" ng-names></div>
-                        <div class="col-md-6  bg-info" ng-phones>
-                        </div></div>
-                        <div class="row"><div class="col-md-12 h4">Address(es)</div></div>
-                        <div class="row">
-                            <div class="col-md-12  bg-info" ng-addresses></div>
-                        </div>
-                        <div class="row"><div class="col-md-6 h4">Birth Date:</div><div class="col-md-6 h4">Organization</div></div>
-                        <div class="row">
-                            <div class="col-md-6  bg-info" ng-birthdate></div> -->
-                            <!-- Organization information - Note that this is a separate service, but included in the Patient view. -->
-                            <!-- <div class="col-md-6  bg-info" ng-organization>
-                            </div></div>
-                        </div>
-                        <br/> -->
-                        <!-- End of patient demographic information template -->
-                        <!-- Template for displaying observations -->
                         <!-- <div id="observationsDiv" class="container-fluid" class="observations" ng-show="observationsShow" ng-controller="ObservationsController">
                             <form id="observationsForm" class="form-observations">
                                 <button class="btn btn-lg btn-primary btn-block" id="refreshObservations" type="button" ng-click="getObservations()">Get/Refresh Observations</button>
