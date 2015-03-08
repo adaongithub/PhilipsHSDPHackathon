@@ -125,6 +125,18 @@ dhp.controller('DashboardController', function($scope, DHPService) {
 		});
 	}
 
+	function createStepData(data) {
+		return _.map(data, function(reading) {
+			var time = new Date(reading.datetime);
+			return [
+				time.valueOf(),
+				reading.steps
+			];
+		})
+	}
+
+	$scope.stepData = createStepData(STATIC_STEP_DATA);
+
 	$scope.$on('glucoseObsSuccess', function() {
 		$scope.glucoseData = [];
 
