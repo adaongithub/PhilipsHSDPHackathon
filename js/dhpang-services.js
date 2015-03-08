@@ -40,6 +40,7 @@ dhp.service('DHPService', function($http, $rootScope) {
 	var observationsWeight;
 	var observationsTelehealthNote;
 	var observationsDiagnosis;
+	var observationsPulseOximetry;
 
 	/* The login function authenticates a user given a username and password and after a token has been retrieved. */
 	var login = function(userName, password, accessToken) {
@@ -312,6 +313,24 @@ dhp.service('DHPService', function($http, $rootScope) {
 		});
 	};
 
+	/* This the observations function for retrieving weight observations for the graph. */
+	this.observationsPulseOximetry = function() {
+		$http({
+			url: BASE_URL_OBSERVATION + '?subject:_id=' + patient_id + '&name=' + PULSE_OXIMETRY_LIONC + '&_sort:asc=date&_count=50',
+			method: "GET",
+			headers: {
+				'Authorization': 'Bearer ' + accessToken,
+				'Accept': 'application/json'
+			}
+		}).success(function(data, status, headers, config) {
+			console.log(data);
+			observationsPulseOximetry = data;
+			$rootScope.$broadcast("Pulse Oximetry Success");
+		}).error(function(data, status, headers, config) {
+			console.log(data);
+		});
+	};
+
 	/* This is the first function called to retrieve an application token.  Once a token is retrieved then it
 		   makes a call to authenticate the user via the login function.										*/
 	this.token = function(username, password) {
@@ -373,9 +392,12 @@ dhp.service('DHPService', function($http, $rootScope) {
 		return observationsWeight;
 	}
 	this.getTelehealthNoteData = function() {
-		return observationsWeight;
+		return observationsTelehealthNote;
 	}
 	this.getDiagnosisData = function() {
-		return observationsWeight;
+		return observationsDiagnosis;
+	}
+	this.getPulseOximetryObservationsData = function() {
+		return observationsPulseOximetry;
 	}
 });

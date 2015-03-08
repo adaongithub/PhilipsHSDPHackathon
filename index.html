@@ -194,7 +194,7 @@
                         <div class="row">
                             <div class="col-md-2"></div>
                             <div class="col-md-8">
-                                <h1><small><img src="images/notebook.png" alt="Philips API's" />&nbsp;Important Trends: March 8th, 2015</small></h1>
+                                <h1><small><img src="images/notebook.png" alt="Notebook" />&nbsp;Important Trends: March 8th, 2015</small></h1>
                             </div>
                             <div class="col-md-2"></div>
                         </div>
@@ -205,7 +205,7 @@
                                 <div class="col-md-4">
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
-                                            <h3 class="panel-title">Glucose&nbsp;<span class="glyphicon glyphicon-ok" style="color:green;"></span></h3>
+                                            <a href="#nurse-glucose"><h3 class="panel-title">Glucose&nbsp;<span class="glyphicon glyphicon-ok" style="color:green;"></span></h3></a>
                                         </div>
 
                                         <div class="panel-body">
@@ -217,7 +217,7 @@
                                 <div class="col-md-4">
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
-                                            <h3 class="panel-title">Blood Pressure&nbsp;<span class="glyphicon glyphicon-ok" style="color:green;"></span></h3>
+                                            <a href="#nurse-bp"><h3 class="panel-title">Blood Pressure&nbsp;<span class="glyphicon glyphicon-ok" style="color:green;"></span></h3></a>
                                         </div>
 
                                         <div class="panel-body">
@@ -232,11 +232,23 @@
                                 <div class="col-md-4">
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
-                                            <h3 class="panel-title">Weight&nbsp;<span class="glyphicon glyphicon-ok" style="color:green;"></span></h3>
+                                            <a href="#nurse-weight"><h3 class="panel-title">Weight&nbsp;<span class="glyphicon glyphicon-ok" style="color:green;"></span></h3></a>
                                         </div>
 
                                         <div class="panel-body">
                                             <span>69.65 kg</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <a href="#nurse-bpm"><h3 class="panel-title">Pulse Oximetry&nbsp;<span class="glyphicon glyphicon-ok" style="color:green;"></span></h3></a>
+                                        </div>
+
+                                        <div class="panel-body">
+                                            <span>81 BPM</span>
                                         </div>
                                     </div>
                                 </div>
@@ -248,7 +260,7 @@
                     <div class="row">
                         <div class="col-lg-2 col-md-1 col-sm-0"></div>
                         <div class="col-lg-8 col-md-10 col-sm-12">
-                            <h1><small><img src="images/chart_area.png" alt="Chart Icon" />&nbsp;Glucose</small></h1>
+                            <a name="nurse-glucose"><h1><small><img src="images/chart_area.png" alt="Chart Icon" />&nbsp;Glucose</small></h1></a>
                             <div class="panel panel-default">
                                 <line-graph data="glucoseData" axis-label="Glucose (mmol/L)" type="Glucose"></line-graph>
                             </div>
@@ -259,7 +271,7 @@
                     <div class="row">
                         <div class="col-lg-2 col-md-1 col-sm-0"></div>
                         <div class="col-lg-8 col-md-10 col-sm-12">
-                            <h1><small><img src="images/chart_area.png" alt="Chart Icon" />&nbsp;Blood Pressure</small></h1>
+                            <a name="nurse-bp"><h1><small><img src="images/chart_area.png" alt="Chart Icon" />&nbsp;Blood Pressure</small></h1></a>
                             <div class="panel panel-default">
                                 <blood-pressure-graph mean-data="meanBPData" diastolic-data="diastolicBPData" systolic-data="systolicBPData"></blood-pressure-graph>
                             </div>
@@ -270,9 +282,20 @@
                     <div class="row">
                         <div class="col-lg-2 col-md-1 col-sm-0"></div>
                         <div class="col-lg-8 col-md-10 col-sm-12">
-                            <h1><small><img src="images/chart_area.png" alt="Chart Icon" />&nbsp;Weight</small></h1>
+                            <a name="nurse-weight"><h1><small><img src="images/chart_area.png" alt="Chart Icon" />&nbsp;Weight</small></h1></a>
                             <div class="panel panel-default">
                                 <line-graph data="weightData" axis-label="Weight (kg)" type="Weight"></line-graph>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-1 col-sm-0"></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-2 col-md-1 col-sm-0"></div>
+                        <div class="col-lg-8 col-md-10 col-sm-12">
+                            <a name="nurse-bpm"><h1><small><img src="images/chart_area.png" alt="Chart Icon" />&nbsp;Pulse Oximetry</small></h1></a>
+                            <div class="panel panel-default">
+                                <line-graph data="pulseOximtryData" axis-label="Beats Per Minute(BPM)" type="BPM"></line-graph>
                             </div>
                         </div>
                         <div class="col-lg-2 col-md-1 col-sm-0"></div>
@@ -365,8 +388,16 @@
                     <div class="row reports">
                         <div class="col-md-2"></div>
                         <div class="col-md-8">
-                            <div ng-show="telehealthNoteData" ng-repeat="telehealthNoteData">
-                            </div>
+                            <table class="table table-bordered" ng-if="telehealthNoteData" style="background:white;">
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Explanation</th> 
+                                </tr>
+                                <tr ng-repeat="note in telehealthNoteData">
+                                    <td>{{note.time}}</td>
+                                    <td>{{note.explanation}}</td> 
+                                </tr>
+                            </table>
                             <!-- Reports Go Here -->
                         </div>
                         <div class="col-md-2"></div>

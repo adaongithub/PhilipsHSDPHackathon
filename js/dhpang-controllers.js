@@ -56,6 +56,8 @@ dhp.controller('DashboardController', function($scope, DHPService) {
 	$scope.$on('Successful login', function() {
 		console.log('Dashboard Controller');
 		$scope.patientPanel = true;
+		$scope.nursePanel = false;
+		$scope.familyPanel = false;
 		DHPService.observationsGlucose();
 	});
 
@@ -88,6 +90,9 @@ dhp.controller('DashboardController', function($scope, DHPService) {
 		}
 		if (!$scope.weightData) {
 			DHPService.observationsWeight();
+		}
+		if (!$scope.pulseOximtryData) {
+			DHPService.observationsPulseOximetry();
 		}
 	};
 
@@ -181,13 +186,25 @@ dhp.controller('DashboardController', function($scope, DHPService) {
 	});
 
 	$scope.$on('Telehealth Note Success', function() {
-		$scope.telehealthNoteData = [];
+		$scope.telehealthNoteData = undefined;
 
 		$.each(DHPService.getTelehealthNoteData(), function(key, val) {
 			if (key === 'entry') {
 				var mapped = mapStringData(val);
 
 				$scope.telehealthNoteData = mapped;
+			}
+		});
+	});
+
+	$scope.$on('Pulse Oximetry Success', function() {
+		$scope.pulseOximtryData = undefined;
+
+		$.each(DHPService.getPulseOximetryObservationsData(), function(key, val) {
+			if (key === 'entry') {
+				var mapped = mapData(val);
+
+				$scope.pulseOximtryData = mapped;
 			}
 		});
 	});
