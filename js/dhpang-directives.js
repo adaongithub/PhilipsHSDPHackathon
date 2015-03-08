@@ -120,7 +120,8 @@ dhp.directive('glucoseGraph', function() {
 					},
 					series: [{
 						name: 'Glucose',
-						data: $scope.data
+						data: $scope.data,
+						color: '#1761a2'
 					}],
 					credits: {
 						enabled: false
@@ -143,6 +144,94 @@ dhp.directive('glucoseGraph', function() {
 	}
 });
 
+dhp.directive('bloodPressureGraph', function() {
+	return {
+		restrict: 'E',
+		scope: {
+			meanData: '=',
+			diastolicData: '=',
+			systolicData: '='
+		},
+		template: '<div id="blood-pressure-graph" style="margin: 10px 0;"></div>',
+		controller: function($scope, $element) {
+			function renderData() {
+				var targetHeight = null;
+
+				var options = {
+					chart: {
+						color: '#eee'
+					},
+					title: {
+						text: null
+					},
+					colors: ['#2c88ba', '#ffbe37'],
+					xAxis: {
+						type: 'datetime',
+						dateTimeLabelFormats: {
+							day: '%b %e',
+							week: '%b %e'
+						},
+						title: {
+							text: 'Time'
+						}
+					},
+					yAxis: {
+						title: {
+							text: 'Mean Blood Pressure (kPa)'
+						}
+					},
+					legend: {
+						// enabled: false
+						align: 'right',
+						verticalAlign: 'top',
+						layout: 'vertical',
+						x: 0,
+			            y: 100
+					},
+					series: [{
+						name: 'Mean Blood Pressure',
+						data: $scope.meanData,
+						color: '#1761a2'
+					}, {
+						name: 'Diastolic Blood Pressure',
+						data: $scope.diastolicData,
+						color: '#FAC313'
+					}, {
+						name: 'Systolic Blood Pressure',
+						data: $scope.systolicData,
+						color: '#FA5B13'
+					}],
+					credits: {
+						enabled: false
+					}
+				};
+
+				$($element).highcharts(options);
+
+				// var chart = $($element).highcharts();
+				// var dataElementsCount = $scope.data.series.length == 0 ? chart.height : ($scope.data.series[0].data.length * 60 * 2);
+				// chart.setSize(chart.width, dataElementsCount);
+			}
+
+			$scope.$watch('meanData', function() {
+				if ($scope.meanData && $scope.diastolicData && $scope.systolicData) {
+					renderData();
+				}
+			});
+			$scope.$watch('diastolicData', function() {
+				if ($scope.meanData && $scope.diastolicData && $scope.systolicData) {
+					renderData();
+				}
+			});
+			$scope.$watch('systolicData', function() {
+				if ($scope.meanData && $scope.diastolicData && $scope.systolicData) {
+					renderData();
+				}
+			});
+		}
+	}
+});
+
 dhp.directive('lineGraph', function() {
 	return {
 		restrict: 'E',
@@ -151,7 +240,7 @@ dhp.directive('lineGraph', function() {
 			axisLabel: '@',
 			type: '@'
 		},
-		template: '<div id="glucose-graph" style="margin: 10px 0;"></div>',
+		template: '<div id="line-graph" style="margin: 10px 0;"></div>',
 		controller: function($scope, $element) {
 			function renderData() {
 				var targetHeight = null;
@@ -189,7 +278,8 @@ dhp.directive('lineGraph', function() {
 					},
 					series: [{
 						name: $scope.type,
-						data: $scope.data
+						data: $scope.data,
+						color: '#1761a2'
 					}],
 					credits: {
 						enabled: false

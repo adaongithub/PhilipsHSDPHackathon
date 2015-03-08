@@ -63,14 +63,28 @@ dhp.controller('DashboardController', function($scope, DHPService) {
 		$scope.patientPanel = true;
 		$scope.nursePanel = false;
 		$scope.familyPanel = false;
+
+		if (!$scope.glucoseData) {
+			DHPService.observationsGlucose();
+		}
 	};
 
 	$scope.showNursePanel = function() {
 		$scope.patientPanel = false;
 		$scope.nursePanel = true;
 		$scope.familyPanel = false;
-		if (!$scope.bpData) {
-			DHPService.observationsBloodPressure();
+		if (!$scope.glucoseData) {
+			DHPService.observationsGlucose();
+		}
+
+		if (!$scope.meanBPData) {
+			DHPService.observationsMeanBloodPressure();
+		}
+		if (!$scope.diastolicBPData) {
+			DHPService.observationsDiastolicBloodPressure();
+		}
+		if (!$scope.systolicBPData) {
+			DHPService.observationsSystolicBloodPressure();
 		}
 	};
 
@@ -78,42 +92,69 @@ dhp.controller('DashboardController', function($scope, DHPService) {
 		$scope.patientPanel = false;
 		$scope.nursePanel = false;
 		$scope.familyPanel = true;
+		if (!$scope.glucoseData) {
+			DHPService.observationsGlucose();
+		}
+
+		if (!$scope.meanBPData) {
+			DHPService.observationsMeanBloodPressure();
+		}
 	};
+
+	function mapData(data) {
+		return _.map(data, function(reading) {
+			var time = new Date(reading.content.appliesDateTime);
+			return [
+				time.valueOf(), // appliesDateTime
+				reading.content.valueQuantity.value // valueQuantity
+			];
+		});
+	}
 
 	$scope.$on('glucoseObsSuccess', function() {
 		$scope.glucoseData = [];
 
 		$.each(DHPService.getGlucoseObservationsData(), function(key, val) {
 			if (key === 'entry') {
-				var mapped = _.map(val, function(reading) {
-					var time = new Date(reading.content.appliesDateTime);
-					return [
-						time.valueOf(), // appliesDateTime
-						reading.content.valueQuantity.value // valueQuantity
-					];
-				});
+				var mapped = mapData(val);
 
 				$scope.glucoseData = mapped;
-				console.log($scope.glucoseData);
 			}
 		});
 	});
 
-	$scope.$on('Blood Pressure Success', function() {
-		$scope.bpData = [];
+	$scope.$on('Mean Blood Pressure Success', function() {
+		$scope.meanBPData = [];
 
-		$.each(DHPService.getBloodPressureObservationsData(), function(key, val) {
+		$.each(DHPService.getMeanBloodPressureObservationsData(), function(key, val) {
 			if (key === 'entry') {
-				var mapped = _.map(val, function(reading) {
-					var time = new Date(reading.content.appliesDateTime);
-					return [
-						time.valueOf(), // appliesDateTime
-						reading.content.valueQuantity.value // valueQuantity
-					];
-				});
+				var mapped = mapData(val);
 
-				$scope.bpData = mapped;
-				console.log($scope.bpData);
+				$scope.meanBPData = mapped;
+			}
+		});
+	});
+
+	$scope.$on('Diastolic Blood Pressure Success', function() {
+		$scope.diastolicBPData = [];
+
+		$.each(DHPService.getDiastolicBloodPressureObservationsData(), function(key, val) {
+			if (key === 'entry') {
+				var mapped = mapData(val);
+
+				$scope.diastolicBPData = mapped;
+			}
+		});
+	});
+
+	$scope.$on('Systolic Blood Pressure Success', function() {
+		$scope.systolicBPData = [];
+
+		$.each(DHPService.getSystolicBloodPressureObservationsData(), function(key, val) {
+			if (key === 'entry') {
+				var mapped = mapData(val);
+
+				$scope.systolicBPData = mapped;
 			}
 		});
 	});

@@ -34,7 +34,9 @@
 		var observationsNextHref;
 		var observationsPrevHref;
 		var observationsGlucose;
-		var observationsBloodPressure;
+		var observationsMeanBloodPressure;
+		var observationsDiastolicBloodPressure;
+		var observationsSystolicBloodPressure;
 		
 		/* The login function authenticates a user given a username and password and after a token has been retrieved. */
 		var login = function(userName,password,accessToken) { 
@@ -171,16 +173,46 @@
 				});
 			};
 
-		/* This the observations function for retrieving bloog pressure observations for the graph. */			
-		this.observationsBloodPressure = function() {
+		/* This the observations function for retrieving mean blood pressure observations for the graph. */			
+		this.observationsMeanBloodPressure = function() {
 			$http({
-				url: BASE_URL_OBSERVATION + '?subject:_id=' + patient_id + '&name=' + BLOOD_PRESSURE_LOINC + '&_sort:asc=date&_count=50',
+				url: BASE_URL_OBSERVATION + '?subject:_id=' + patient_id + '&name=' + MEAN_BLOOD_PRESSURE_LOINC + '&_sort:asc=date&_count=50',
 				method: "GET",
 				headers: {'Authorization':'Bearer ' + accessToken,'Accept':'application/json'}
 				}).success(function (data, status, headers, config) {
 					console.log(data);
-					observationsBloodPressure = data;
-					$rootScope.$broadcast("Blood Pressure Success");
+					observationsMeanBloodPressure = data;
+					$rootScope.$broadcast("Mean Blood Pressure Success");
+				}).error(function (data, status, headers, config) {
+					console.log(data);
+				});
+			};
+
+			/* This the observations function for retrieving mean blood pressure observations for the graph. */			
+		this.observationsDiastolicBloodPressure = function() {
+			$http({
+				url: BASE_URL_OBSERVATION + '?subject:_id=' + patient_id + '&name=' + DIASTOLIC_BLOOD_PRESSURE_LOINC + '&_sort:asc=date&_count=50',
+				method: "GET",
+				headers: {'Authorization':'Bearer ' + accessToken,'Accept':'application/json'}
+				}).success(function (data, status, headers, config) {
+					console.log(data);
+					observationsDiastolicBloodPressure = data;
+					$rootScope.$broadcast("Diastolic Blood Pressure Success");
+				}).error(function (data, status, headers, config) {
+					console.log(data);
+				});
+			};
+
+			/* This the observations function for retrieving mean blood pressure observations for the graph. */			
+		this.observationsSystolicBloodPressure = function() {
+			$http({
+				url: BASE_URL_OBSERVATION + '?subject:_id=' + patient_id + '&name=' + SYSTOLIC_BLOOD_PRESSURE_LOINC + '&_sort:asc=date&_count=50',
+				method: "GET",
+				headers: {'Authorization':'Bearer ' + accessToken,'Accept':'application/json'}
+				}).success(function (data, status, headers, config) {
+					console.log(data);
+					observationsSystolicBloodPressure = data;
+					$rootScope.$broadcast("Systolic Blood Pressure Success");
 				}).error(function (data, status, headers, config) {
 					console.log(data);
 				});
@@ -232,7 +264,13 @@
 		this.getGlucoseObservationsData = function () {
 			return observationsGlucose;
 		}
-		this.getBloodPressureObservationsData = function () {
-			return observationsBloodPressure;
+		this.getMeanBloodPressureObservationsData = function () {
+			return observationsMeanBloodPressure;
 		}		
+		this.getDiastolicBloodPressureObservationsData = function () {
+			return observationsDiastolicBloodPressure;
+		}			
+		this.getSystolicBloodPressureObservationsData = function () {
+			return observationsSystolicBloodPressure;
+		}
 	});

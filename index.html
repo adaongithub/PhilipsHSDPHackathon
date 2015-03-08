@@ -118,14 +118,14 @@
                         <div class="row">
                             <div class="col-md-2"></div>
                             <div class="col-md-8">
-                                <h1><small><img src="images/notebook.png" alt="Philips API's" />&nbsp;Summary: March 8th, 2015</small></h1>
+                                <h1><small><img src="images/notebook.png" alt="Notebook" />&nbsp;Summary: March 8th, 2015</small></h1>
                             </div>
                             <div class="col-md-2"></div>
                         </div>
 
                         <div class="row">
-                            <div class="col-md-2"></div>
-                            <div class="col-md-8">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-10">
                                 <div class="col-md-4">
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
@@ -133,7 +133,7 @@
                                         </div>
 
                                         <div class="panel-body">
-                                            Glucose Reading: 6.0 mmol/L
+                                            <span><img src="images/drop.png" alt="Drop Icon" style="width:30px;" /><strong>Glucose Reading: 6.0 mmol/L</strong></span>
                                         </div>
                                     </div>
                                 </div>
@@ -145,7 +145,7 @@
                                         </div>
 
                                         <div class="panel-body">
-                                            <span>2,043 Steps</span>
+                                            <span><img src="images/step.png" alt="Step Icon" style="width:30px;" /><strong>2,043 Steps</strong></span>
                                         </div>
                                     </div>
                                 </div>
@@ -162,7 +162,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-2"></div>
+                            <div class="col-md-1"></div>
                         </div>
                     </div>
 
@@ -261,7 +261,7 @@
                         <div class="col-md-8">
                             <h1><small><img src="images/chart_area.png" alt="Chart Icon" />&nbsp;Blood Pressure</small></h1>
                             <div class="panel panel-default">
-                                <line-graph data="bpData" axis-label="Mean Blood Pressure (kPa)" type="Blood Pressure"></line-graph>
+                                <blood-pressure-graph mean-data="meanBPData" diastolic-data="diastolicBPData" systolic-data="systolicBPData"></blood-pressure-graph>
                             </div>
                         </div>
                         <div class="col-md-2"></div>
@@ -269,8 +269,91 @@
                 </div>
 
                 <div class="row family" ng-if="familyPanel">
-                    <div class="col-md-12">
-                        <span>Family Panel</span>
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                            <div class="page-header">
+                                <h1>Dad's Dashboard</h1>
+                            </div>
+                        </div>
+                        <div class="col-md-2"></div>
+                    </div>
+
+                    <div class="summary-container">
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-8">
+                                <h1><small><img src="images/notebook.png" alt="Philips API's" />&nbsp;Summary: March 8th, 2015</small></h1>
+                            </div>
+                            <div class="col-md-2"></div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-8">
+                                <div class="col-md-4">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title">Glucose</h3>
+                                        </div>
+
+                                        <div class="panel-body">
+                                            Glucose Reading: 6.0 mmol/L
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title">Blood Pressure</h3>
+                                        </div>
+
+                                        <div class="panel-body">
+                                            <span>Mean Blood Pressure: 11 kPa</span>
+                                        </div>
+                                        <div class="panel-body">
+                                            <span>Blood Pressure: 120 / 80 mmHg</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title">Weight</h3>
+                                        </div>
+
+                                        <div class="panel-body">
+                                            <span>80 kg</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2"></div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                            <h1><small><img src="images/chart_area.png" alt="Chart Icon" />&nbsp;Glucose</small></h1>
+                            <div class="panel panel-default">
+                                <line-graph data="glucoseData" axis-label="Glucose (mmol/L)" type="Glucose"></line-graph>
+                            </div>
+                        </div>
+                        <div class="col-md-2"></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                            <h1><small><img src="images/chart_area.png" alt="Chart Icon" />&nbsp;Mean Blood Pressure</small></h1>
+                            <div class="panel panel-default">
+                                <line-graph data="meanBPData" axis-label="Mean Blood Pressure (kPa)" type="Blood Pressure"></line-graph>
+                            </div>
+                        </div>
+                        <div class="col-md-2"></div>
                     </div>
                 </div>
 
