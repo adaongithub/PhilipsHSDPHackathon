@@ -86,18 +86,17 @@ dhp.controller('DashboardController', function($scope, DHPService) {
 		if (!$scope.systolicBPData) {
 			DHPService.observationsSystolicBloodPressure();
 		}
+		if (!$scope.weightData) {
+			DHPService.observationsWeight();
+		}
 	};
 
 	$scope.showFamilyPanel = function() {
 		$scope.patientPanel = false;
 		$scope.nursePanel = false;
 		$scope.familyPanel = true;
-		if (!$scope.glucoseData) {
-			DHPService.observationsGlucose();
-		}
-
-		if (!$scope.meanBPData) {
-			DHPService.observationsMeanBloodPressure();
+		if (!$scope.telehealthNoteData) {
+			DHPService.observationsTelehealthNote();
 		}
 	};
 
@@ -108,6 +107,16 @@ dhp.controller('DashboardController', function($scope, DHPService) {
 				time.valueOf(), // appliesDateTime
 				reading.content.valueQuantity.value // valueQuantity
 			];
+		});
+	}
+
+	function mapStringData(data) {
+		return _.map(data, function(reading) {
+			var time = new Date(reading.content.appliesDateTime);
+			return {
+				time: time.toDateString(),
+				explanation: reading.content.valueString
+			};
 		});
 	}
 
@@ -155,6 +164,30 @@ dhp.controller('DashboardController', function($scope, DHPService) {
 				var mapped = mapData(val);
 
 				$scope.systolicBPData = mapped;
+			}
+		});
+	});
+
+	$scope.$on('Weight Success', function() {
+		$scope.weightData = [];
+
+		$.each(DHPService.getWeightObservationsData(), function(key, val) {
+			if (key === 'entry') {
+				var mapped = mapData(val);
+
+				$scope.weightData = mapped;
+			}
+		});
+	});
+
+	$scope.$on('Telehealth Note Success', function() {
+		$scope.telehealthNoteData = [];
+
+		$.each(DHPService.getTelehealthNoteData(), function(key, val) {
+			if (key === 'entry') {
+				var mapped = mapStringData(val);
+
+				$scope.telehealthNoteData = mapped;
 			}
 		});
 	});
