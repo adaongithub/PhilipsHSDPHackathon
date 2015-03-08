@@ -49,24 +49,71 @@ dhp.controller('LoginController', function($scope, DHPService) {
 });
 
 dhp.controller('DashboardController', function($scope, DHPService) {
+	$scope.patientPanel = false;
+	$scope.nursePanel = false;
+	$scope.familyPanel = false;
+
 	$scope.$on('Successful login', function() {
 		console.log('Dashboard Controller');
+		$scope.patientPanel = true;
 		DHPService.observationsGlucose();
 	});
+
+	$scope.showPatientPanel = function() {
+		$scope.patientPanel = true;
+		$scope.nursePanel = false;
+		$scope.familyPanel = false;
+	};
+
+	$scope.showNursePanel = function() {
+		$scope.patientPanel = false;
+		$scope.nursePanel = true;
+		$scope.familyPanel = false;
+		if (!$scope.bpData) {
+			DHPService.observationsBloodPressure();
+		}
+	};
+
+	$scope.showFamilyPanel = function() {
+		$scope.patientPanel = false;
+		$scope.nursePanel = false;
+		$scope.familyPanel = true;
+	};
 
 	$scope.$on('glucoseObsSuccess', function() {
 		$scope.glucoseData = [];
 
 		$.each(DHPService.getGlucoseObservationsData(), function(key, val) {
-			if (key == 'entry') {
+			if (key === 'entry') {
 				var mapped = _.map(val, function(reading) {
-					return {
-						valueQuantity: reading.content.valueQuantity.value,
-						appliesDateTime: reading.content.appliesDateTime
-					};
+					var time = new Date(reading.content.appliesDateTime);
+					return [
+						time.valueOf(), // appliesDateTime
+						reading.content.valueQuantity.value // valueQuantity
+					];
 				});
 
-				$scope.glucoseData.push(mapped);
+				$scope.glucoseData = mapped;
+				console.log($scope.glucoseData);
+			}
+		});
+	});
+
+	$scope.$on('Blood Pressure Success', function() {
+		$scope.bpData = [];
+
+		$.each(DHPService.getBloodPressureObservationsData(), function(key, val) {
+			if (key === 'entry') {
+				var mapped = _.map(val, function(reading) {
+					var time = new Date(reading.content.appliesDateTime);
+					return [
+						time.valueOf(), // appliesDateTime
+						reading.content.valueQuantity.value // valueQuantity
+					];
+				});
+
+				$scope.bpData = mapped;
+				console.log($scope.bpData);
 			}
 		});
 	});

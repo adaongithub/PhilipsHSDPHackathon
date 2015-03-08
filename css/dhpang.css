@@ -23,8 +23,8 @@
 * This is a custom CSS stylesheet for the application.
 */
  
- body {
-	background: #eee !important;	
+body {
+	background: #aaa !important;	
 }
 
 .wrapper {	
@@ -70,5 +70,10 @@
 }
 
 #patientDiv {
+  background: #eee;
   width: 80%;
+}
+
+.patient, .family, .nurse {
+  flex: 1 1 auto;
 }

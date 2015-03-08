@@ -38,7 +38,7 @@
         <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
-                <!-- Template for own app -->
+        <!-- Template for own app -->
         <script src="js/lodash.min.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
         <script src="js/dhpang-constants.js"></script>
@@ -71,75 +71,267 @@
             </form>
         </div>
         <!-- End of intial login template -->
-
         <!-- Template for displaying patient demographic information -->
         <div id="patientDiv" class="container-fluid" class="patient" ng-show="patientShow" ng-controller="PatientController">
             <script src="js/highcharts.js"></script>
-
-            <img src="images/PlainPhillips145x38.png" alt="Philips API's" />
-            <button id="logoutButton" class="btn btn-primary pull-right" type="button" ng-click="logoutUser()">Logout</button>
-            <!-- <button class="btn btn-lg btn-primary btn-block" id="refreshPatient" type="button" ng-click="getPatient()">Get/Refresh Person Info</button> -->
-
+            <!-- <button id="logoutButton" class="btn btn-primary pull-right" type="button" ng-click="logoutUser()">Logout</button> -->
             <div id="dashboardDiv" class="container-fluid" ng-controller="DashboardController">
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            </button>
+                            <img src="images/PlainPhillips145x38.png" alt="Philips API's" />
+                        </div>
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav">
+                                <li class="{{!!patientPanel ? 'active' : undefined}}" ng-click="showPatientPanel()"><a href="#">Patient <span class="sr-only">(current)</span></a></li>
+                                <li class="{{!!nursePanel ? 'active' : undefined}}" ng-click="showNursePanel()"><a href="#">Healthcare Practitioner</a></li>
+                                <li class="{{!!familyPanel ? 'active' : undefined}}" ng-click="showFamilyPanel()"><a href="#">Close Family</a></li>
+                            </ul>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a id="logoutButton" style="color:#1761a2;cursor:pointer;" ng-click="logoutUser()">Logout</a></li>
+                            </ul>
+                        </div><!-- /.navbar-collapse -->
+                    </div><!-- /.container-fluid -->
+                </nav>
+                        
+                        <!-- <button class="btn btn-lg btn-primary btn-block" id="refreshPatient" type="button" ng-click="getPatient()">Get/Refresh Person Info</button> -->
+                <div class="row patient" ng-if="patientPanel">
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                            <div class="page-header">
+                                <h1>Welcome Back, Sam S. Smith</h1>
+                            </div>
+                        </div>
+                        <div class="col-md-2"></div>
+                    </div>
 
-                <h1>Quick Chart</h1>
+                    <div class="summary-container">
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-8">
+                                <h1><small><img src="images/notebook.png" alt="Philips API's" />&nbsp;Summary: March 8th, 2015</small></h1>
+                            </div>
+                            <div class="col-md-2"></div>
+                        </div>
 
-            </div>
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-8">
+                                <div class="col-md-4">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title">Glucose</h3>
+                                        </div>
 
-            <div class="row">
-                <div class="col-md-6 h4">Status</div>
-                <div class="col-md-6 h4">Gender</div>
-            </div>
+                                        <div class="panel-body">
+                                            Glucose Reading: 6.0 mmol/L
+                                        </div>
+                                    </div>
+                                </div>
 
-            <!-- <div class="row">
-                <div class="col-md-6 bg-info" ng-status>
+                                <div class="col-md-4">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title">Number of Steps</h3>
+                                        </div>
+
+                                        <div class="panel-body">
+                                            <span>2,043 Steps</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title">Weight</h3>
+                                        </div>
+
+                                        <div class="panel-body">
+                                            <span>80 kg</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2"></div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                            <h1><small><img src="images/chart_area.png" alt="Chart Icon" />&nbsp;Glucose</small></h1>
+                            <div class="panel panel-default">
+                                <glucose-graph data="glucoseData" axis-label="Glucose (mmol/L)"></glucose-graph>
+                            </div>
+                        </div>
+                        <div class="col-md-2"></div>
+                    </div>
+
                 </div>
-                <div class="col-md-6 bg-info" ng-gender>
-                </div></div>
-                <div class="row"><div class="col-md-6 h4">Name(s)</div><div class="col-md-6 h4">Telecom</div></div>
-                <div class="row">
-                    <div class="col-md-6  bg-info" ng-names></div>
-                    <div class="col-md-6  bg-info" ng-phones>
+
+                <div class="row nurse" ng-if="nursePanel">
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                            <div class="page-header">
+                                <h1>Patient: Sam S. Smith</h1>
+                            </div>
+                        </div>
+                        <div class="col-md-2"></div>
+                    </div>
+
+                    <div class="summary-container">
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-8">
+                                <h1><small><img src="images/notebook.png" alt="Philips API's" />&nbsp;Summary: March 8th, 2015</small></h1>
+                            </div>
+                            <div class="col-md-2"></div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-8">
+                                <div class="col-md-4">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title">Glucose</h3>
+                                        </div>
+
+                                        <div class="panel-body">
+                                            Glucose Reading: 6.0 mmol/L
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title">Blood Pressure</h3>
+                                        </div>
+
+                                        <div class="panel-body">
+                                            <span>Mean Blood Pressure: 11 kPa</span>
+                                        </div>
+                                        <div class="panel-body">
+                                            <span>Blood Pressure: 120 / 80 mmHg</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title">Weight</h3>
+                                        </div>
+
+                                        <div class="panel-body">
+                                            <span>80 kg</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2"></div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                            <h1><small><img src="images/chart_area.png" alt="Chart Icon" />&nbsp;Glucose</small></h1>
+                            <div class="panel panel-default">
+                                <line-graph data="glucoseData" axis-label="Glucose (mmol/L)" type="Glucose"></line-graph>
+                            </div>
+                        </div>
+                        <div class="col-md-2"></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                            <h1><small><img src="images/chart_area.png" alt="Chart Icon" />&nbsp;Blood Pressure</small></h1>
+                            <div class="panel panel-default">
+                                <line-graph data="bpData" axis-label="Mean Blood Pressure (kPa)" type="Blood Pressure"></line-graph>
+                            </div>
+                        </div>
+                        <div class="col-md-2"></div>
+                    </div>
+                </div>
+
+                <div class="row family" ng-if="familyPanel">
+                    <div class="col-md-12">
+                        <span>Family Panel</span>
+                    </div>
+                </div>
+
+            </div> <!-- End of Dashboard -->
+
+
+
+
+                <!--             <div class="row">
+                    <div class="col-md-6 h4">Status</div>
+                    <div class="col-md-6 h4">Gender</div>
+                </div> -->
+                <!-- <div class="row">
+                    <div class="col-md-6 bg-info" ng-status>
+                    </div>
+                    <div class="col-md-6 bg-info" ng-gender>
                     </div></div>
-                    <div class="row"><div class="col-md-12 h4">Address(es)</div></div>
+                    <div class="row"><div class="col-md-6 h4">Name(s)</div><div class="col-md-6 h4">Telecom</div></div>
                     <div class="row">
-                        <div class="col-md-12  bg-info" ng-addresses></div>
-                    </div>
-                    <div class="row"><div class="col-md-6 h4">Birth Date:</div><div class="col-md-6 h4">Organization</div></div>
-                    <div class="row">
-                        <div class="col-md-6  bg-info" ng-birthdate></div> -->
-                        <!-- Organization information - Note that this is a separate service, but included in the Patient view. -->
-                        <!-- <div class="col-md-6  bg-info" ng-organization>
+                        <div class="col-md-6  bg-info" ng-names></div>
+                        <div class="col-md-6  bg-info" ng-phones>
                         </div></div>
-                    </div>
-                    <br/> -->
-                    <!-- End of patient demographic information template -->
-                    <!-- Template for displaying observations -->
-                    <!-- <div id="observationsDiv" class="container-fluid" class="observations" ng-show="observationsShow" ng-controller="ObservationsController">
-                        <form id="observationsForm" class="form-observations">
-                            <button class="btn btn-lg btn-primary btn-block" id="refreshObservations" type="button" ng-click="getObservations()">Get/Refresh Observations</button>
-                            <br/>
-                            <button type="button" class="btn btn-primary pull-right" type="button" ng-click="getObservationsNext()" ng-show="showNext">Next >></button>
-                            <button type="button" class="btn btn-primary pull-left" type="button" ng-click="getObservationsPrevious()" ng-show="showPrevious"><< Previous</button>
-                            <br/>
-                            <div class="text-center"><div ng-totalresults></div></div>
-                            <table class="table table-striped">
-                                <tbody>
-                                    <tr ng-repeat="obs in obsTable track by $index">
-                                        <td>{{obs.display}}<br/>{{obs.datetime}}</td><td>{{obs.value}}&nbsp;{{obs.units}}<br/>Status:{{obs.status}} Rel:{{obs.reliability}}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <p></p>
-                        </form>
-                    </div> -->
-                    <!-- End of observations template -->
-                    <!-- Template for displaying graph -->
-                    <!-- <div id="graphDiv" class="container-fluid" class="graph" ng-show="graphShow" ng-controller="GraphController">
-                        <button class="btn btn-lg btn-primary btn-block" id="refreshGraph" type="button" ng-click="getGraph()">Get/Refresh Glucose Graph</button>
-                        <div class="text-center"><div ng-nograph></div></div>
-                        <canvas id="line" class="chart chart-line" data="data" labels="labels" legend="true" series="series" click="onClick"></canvas>
-                    </div> -->
-                    <!-- End of graph template -->
-                </body>
-            </html>
+                        <div class="row"><div class="col-md-12 h4">Address(es)</div></div>
+                        <div class="row">
+                            <div class="col-md-12  bg-info" ng-addresses></div>
+                        </div>
+                        <div class="row"><div class="col-md-6 h4">Birth Date:</div><div class="col-md-6 h4">Organization</div></div>
+                        <div class="row">
+                            <div class="col-md-6  bg-info" ng-birthdate></div> -->
+                            <!-- Organization information - Note that this is a separate service, but included in the Patient view. -->
+                            <!-- <div class="col-md-6  bg-info" ng-organization>
+                            </div></div>
+                        </div>
+                        <br/> -->
+                        <!-- End of patient demographic information template -->
+                        <!-- Template for displaying observations -->
+                        <!-- <div id="observationsDiv" class="container-fluid" class="observations" ng-show="observationsShow" ng-controller="ObservationsController">
+                            <form id="observationsForm" class="form-observations">
+                                <button class="btn btn-lg btn-primary btn-block" id="refreshObservations" type="button" ng-click="getObservations()">Get/Refresh Observations</button>
+                                <br/>
+                                <button type="button" class="btn btn-primary pull-right" type="button" ng-click="getObservationsNext()" ng-show="showNext">Next >></button>
+                                <button type="button" class="btn btn-primary pull-left" type="button" ng-click="getObservationsPrevious()" ng-show="showPrevious"><< Previous</button>
+                                <br/>
+                                <div class="text-center"><div ng-totalresults></div></div>
+                                <table class="table table-striped">
+                                    <tbody>
+                                        <tr ng-repeat="obs in obsTable track by $index">
+                                            <td>{{obs.display}}<br/>{{obs.datetime}}</td><td>{{obs.value}}&nbsp;{{obs.units}}<br/>Status:{{obs.status}} Rel:{{obs.reliability}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <p></p>
+                            </form>
+                        </div> -->
+                        <!-- End of observations template -->
+                        <!-- Template for displaying graph -->
+                        <!-- <div id="graphDiv" class="container-fluid" class="graph" ng-show="graphShow" ng-controller="GraphController">
+                            <button class="btn btn-lg btn-primary btn-block" id="refreshGraph" type="button" ng-click="getGraph()">Get/Refresh Glucose Graph</button>
+                            <div class="text-center"><div ng-nograph></div></div>
+                            <canvas id="line" class="chart chart-line" data="data" labels="labels" legend="true" series="series" click="onClick"></canvas>
+                        </div> -->
+                        <!-- End of graph template -->
+                    </body>
+                </html>
