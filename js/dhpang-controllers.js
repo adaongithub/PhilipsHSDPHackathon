@@ -135,6 +135,31 @@ dhp.controller('DashboardController', function($scope, DHPService) {
 		})
 	}
 
+	// Returns a random integer between min (included) and max (excluded)
+	// Using Math.round() will give you a non-uniform distribution!
+	function binaryGeneration() {
+		return _.sample([0, 1]);
+	}
+
+	function getRandomInt(firstMin, firstMax, secondMin, secondMax) {
+		var sample = binaryGeneration();
+		if (sample === 0) {
+			return Math.floor(Math.random() * (firstMax - firstMin)) + firstMin;
+		} else {
+			return Math.floor(Math.random() * (secondMax - secondMin)) + secondMin;
+		}
+	}
+
+
+	function randomData(data) {
+		return _.map(data, function(reading) {
+			return [
+				getRandomInt(0, 1000, 3000, 4000), // Activity
+				reading.content.valueQuantity.value // valueQuantity
+			];
+		});
+	}
+
 	$scope.stepData = createStepData(STATIC_STEP_DATA);
 
 	$scope.$on('glucoseObsSuccess', function() {
@@ -143,8 +168,10 @@ dhp.controller('DashboardController', function($scope, DHPService) {
 		$.each(DHPService.getGlucoseObservationsData(), function(key, val) {
 			if (key === 'entry') {
 				var mapped = mapData(val);
+				var stepMockData = randomData(val);
 
 				$scope.glucoseData = mapped;
+				$scope.bloodGlucoseActivityData = _.slice(stepMockData, 0, 15);
 			}
 		});
 	});

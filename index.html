@@ -92,8 +92,8 @@
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                             <ul class="nav navbar-nav">
                                 <li class="{{!!patientPanel ? 'active' : undefined}}" ng-click="showPatientPanel()"><a href="#">Patient <span class="sr-only">(current)</span></a></li>
-                                <li class="{{!!nursePanel ? 'active' : undefined}}" ng-click="showNursePanel()"><a href="#">Healthcare Practitioner</a></li>
-                                <li class="{{!!familyPanel ? 'active' : undefined}}" ng-click="showFamilyPanel()"><a href="#">Close Family</a></li>
+                                <li class="{{!!nursePanel ? 'active' : undefined}}" ng-click="showNursePanel()"><a href="#">Healthcare Provider</a></li>
+                                <li class="{{!!familyPanel ? 'active' : undefined}}" ng-click="showFamilyPanel()"><a href="#">Family Caregiver</a></li>
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
                                 <li><a id="logoutButton" style="color:#1761a2;cursor:pointer;" ng-click="logoutUser()">Logout</a></li>
@@ -376,6 +376,17 @@
                             <a name="nurse-bpm"><h1><small><img src="images/chart_area.png" alt="Chart Icon" />&nbsp;Pulse Oximetry</small></h1></a>
                             <div class="panel panel-default">
                                 <line-graph data="pulseOximtryData" axis-label="Beats Per Minute(BPM)" type="BPM"></line-graph>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-1 col-sm-0"></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-2 col-md-1 col-sm-0"></div>
+                        <div class="col-lg-8 col-md-10 col-sm-12">
+                            <a name="nurse-bpm"><h1><small><img src="images/chart_area.png" alt="Chart Icon" />&nbsp;Blood Glucose vs. Activity</small></h1></a>
+                            <div class="panel panel-default">
+                                <heat-map-chart data="bloodGlucoseActivityData"></heat-map-chart>
                             </div>
                         </div>
                         <div class="col-lg-2 col-md-1 col-sm-0"></div>

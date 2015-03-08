@@ -116,7 +116,7 @@ dhp.directive('glucoseGraph', function() {
 						verticalAlign: 'top',
 						layout: 'vertical',
 						x: 0,
-			            y: 100
+						y: 100
 					},
 					series: [{
 						name: 'Glucose',
@@ -186,7 +186,7 @@ dhp.directive('bloodPressureGraph', function() {
 						verticalAlign: 'top',
 						layout: 'vertical',
 						x: 0,
-			            y: 100
+						y: 100
 					},
 					series: [{
 						name: 'Mean Blood Pressure',
@@ -274,7 +274,7 @@ dhp.directive('lineGraph', function() {
 						verticalAlign: 'top',
 						layout: 'vertical',
 						x: 0,
-			            y: 100
+						y: 100
 					},
 					series: [{
 						name: $scope.type,
@@ -291,6 +291,80 @@ dhp.directive('lineGraph', function() {
 				// var chart = $($element).highcharts();
 				// var dataElementsCount = $scope.data.series.length == 0 ? chart.height : ($scope.data.series[0].data.length * 60 * 2);
 				// chart.setSize(chart.width, dataElementsCount);
+			}
+
+			$scope.$watch('data', function() {
+				if ($scope.data) {
+					renderData();
+				}
+			});
+		}
+	}
+});
+
+dhp.directive('heatMapChart', function() {
+	return {
+		restrict: 'E',
+		scope: {
+			data: '='
+		},
+		template: '<div id="heat-map-graph" style="margin: 10px 0;"></div>',
+		controller: function($scope, $element) {
+			function renderData() {
+				var targetHeight = null;
+
+				var options = {
+					chart: {
+						renderTo: 'container',
+						backgroundColor: {
+							linearGradient: {
+								x1: 1,
+								y1: 0,
+								x2: 0,
+								y2: 1
+							},
+							stops: [
+								[0, 'rgba(255, 0, 0, 0.5)'],
+								[1, 'rgba(0, 255, 0, 0.5)']
+							]
+						},
+						type: 'line'
+					},
+					title: {
+						text: null
+					},
+					colors: ['#2c88ba', '#ffbe37'],
+					tooltip: {
+						headerFormat: '<small>March 3rd, 2015</small><br>',
+					},
+					xAxis: {
+						title: {
+							text: 'Activity (steps)'
+						}
+					},
+					yAxis: {
+						title: {
+							text: 'Blood Glucose (mmol/L)'
+						}
+					},
+					legend: {
+						enabled: false
+					},
+					series: [{
+						name: 'Activity vs. Blood Glucose',
+						data: $scope.data,
+						marker: {
+							fillColor: 'white',
+							lineWidth: 1,
+							lineColor: '#1761a2'
+						},
+					}],
+					credits: {
+						enabled: false
+					}
+				};
+
+				$($element).highcharts(options);
 			}
 
 			$scope.$watch('data', function() {
